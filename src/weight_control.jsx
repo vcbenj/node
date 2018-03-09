@@ -1,10 +1,9 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
+import React from 'react';
 
-module.exports = function WeightControl(props) {
+export default function WeightControl(props) {
   return (
     <div className="form-group">
-      <label for="weight">Item Weight</label>
+      <label htmlFor="weight">Item Weight</label>
       <input
         type="number"
         min="0.01"
@@ -18,4 +17,4 @@ module.exports = function WeightControl(props) {
       />
     </div>
   );
-};
+}

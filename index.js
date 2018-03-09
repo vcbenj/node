@@ -27,7 +27,7 @@ app.get('/getRate', (req, res) => {
   }
 });
 
-app.get('/api/rates/:type/:', (req, res) => {
+app.get('/api/rates/:type/', (req, res) => {
   let {weight} = req.query;
   let {type} = req.params;
   try {

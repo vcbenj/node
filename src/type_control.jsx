@@ -1,10 +1,10 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-module.exports = function TypeControl(props) {
+export default function TypeControl(props) {
   return (
     <div className="form-group">
-      <label for="type">Item Type</label>
+      <label htmlFor="type">Item Type</label>
       <select
         id="type"
         className="form-control"
@@ -18,4 +18,4 @@ module.exports = function TypeControl(props) {
       </select>
     </div>
   );
-};
+}
