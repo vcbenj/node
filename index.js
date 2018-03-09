@@ -27,6 +27,21 @@ app.get('/getRate', (req, res) => {
   }
 });
 
+app.get('/api/rates/:type/:', (req, res) => {
+  let {weight} = req.query;
+  let {type} = req.params;
+  try {
+    let rate = calculateRate(+weight, type).toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    });
+    res.json({type: type, weight: +weight, rate: rate});
+  } catch (err) {
+    console.log({error: err, weight: weight, type: type});
+    res.status(400).send(err.message);
+  }
+});
+
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 
 function calculateRate(weight, type) {

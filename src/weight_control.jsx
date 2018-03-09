@@ -1,7 +1,7 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 
-module.exports = function WeightControl() {
+module.exports = function WeightControl(props) {
   return (
     <div className="form-group">
       <label for="weight">Item Weight</label>
@@ -13,6 +13,8 @@ module.exports = function WeightControl() {
         className="form-control"
         placeholder="0.01"
         name="weight"
+        value={props.weight}
+        onChange={props.onWeightChange}
       />
     </div>
   );
