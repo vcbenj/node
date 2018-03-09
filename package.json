@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "buildprod": "./node_modules/.bin/webpack --mode production",
-    "build": "./node_modules/.bin/webpack --mode development",
+    "build": "./node_modules/.bin/webpack --mode production",
+    "builddev": "./node_modules/.bin/webpack --mode development",
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
