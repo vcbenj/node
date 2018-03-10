@@ -9,10 +9,13 @@ import CalculationError from './error.jsx';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {weight: 0.02, type: 'stamped', rate: 0};
     this.handleWeightChange = this.handleWeightChange.bind(this);
     this.handleTypeChange = this.handleTypeChange.bind(this);
+    this.useAjaxStrategy = this.useAjaxStrategy.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleToggleOff = this.handleToggleOff.bind(this);
+    this.handleToggleOn = this.handleToggleOn.bind(this);
+    this.state = {weight: 0.02, type: 'stamped', rate: 0, useAjax: false};
   }
 
   handleWeightChange(event) {
@@ -23,8 +26,14 @@ class App extends React.Component {
     this.setState({type: event.target.value});
   }
 
-  handleSubmit(event) {
-    console.log('submitting...');
+  useDefaultStrategy(event) {
+    console.log('submitting using default approach...');
+    return;
+  }
+
+  useAjaxStrategy(event) {
+    console.log('submitting using AJAX...');
+    event.preventDefault();
     let url = `/api/rates/${this.state.type}?weight=${this.state.weight}`;
     fetch(url, {method: 'GET'})
       .then(res => {
@@ -44,6 +53,19 @@ class App extends React.Component {
       });
   }
 
+  handleSubmit(event) {
+    if (this.state.useAjax) this.useAjaxStrategy(event);
+    else this.useDefaultStrategy(event);
+  }
+
+  handleToggleOn() {
+    this.setState({useAjax: true});
+  }
+
+  handleToggleOff() {
+    this.setState({useAjax: false});
+  }
+
   render() {
     return (
       <div className="col-sm-4">
@@ -54,8 +76,11 @@ class App extends React.Component {
             <PostalCalculator
               weight={this.state.weight}
               type={this.state.type}
+              useAjax={this.state.useAjax}
               onWeightChange={this.handleWeightChange}
               onTypeChange={this.handleTypeChange}
+              onToggleOn={this.handleToggleOn}
+              onToggleOff={this.handleToggleOff}
               onSubmit={this.handleSubmit}
             />
           )}
