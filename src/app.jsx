@@ -6,13 +6,81 @@ import Result from './result.jsx';
 import PostalCalculator from './postal_calculator.jsx';
 import CalculationError from './error.jsx';
 
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {weight: 0.02, type: 'stamped', rate: 0};
+    this.handleWeightChange = this.handleWeightChange.bind(this);
+    this.handleTypeChange = this.handleTypeChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleWeightChange(event) {
+    this.setState({weight: event.target.value});
+  }
+
+  handleTypeChange(event) {
+    this.setState({type: event.target.value});
+  }
+
+  handleSubmit(event) {
+    console.log('submitting...');
+    let url = `/api/rates/${this.state.type}?weight=${this.state.weight}`;
+    fetch(url, {method: 'GET'})
+      .then(res => {
+        if (res.ok && res.status == 200) return res.json();
+
+        throw res;
+      })
+      .then(data => {
+        let {rate} = data;
+        this.setState({rate: rate});
+        this.props.history.push('/result');
+      })
+      .catch(err => {
+        err.text().then(msg => {
+          this.props.history.push('/error', {message: msg});
+        });
+      });
+  }
+
+  render() {
+    return (
+      <div className="col-sm-4">
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <PostalCalculator
+              weight={this.state.weight}
+              type={this.state.type}
+              onWeightChange={this.handleWeightChange}
+              onTypeChange={this.handleTypeChange}
+              onSubmit={this.handleSubmit}
+            />
+          )}
+        />
+        <Route
+          path="/result"
+          render={() => (
+            <Result
+              weight={this.state.weight}
+              type={this.state.type}
+              rate={this.state.rate}
+            />
+          )}
+        />
+        <Route path="/error" component={withRouter(CalculationError)} />
+      </div>
+    );
+  }
+}
+
+const MyApp = withRouter(App);
+
 ReactDOM.render(
   <Router>
-    <div className="col-sm-4">
-      <Route exact path="/" component={withRouter(PostalCalculator)} />
-      <Route path="/result" component={withRouter(Result)} />
-      <Route path="/error" component={withRouter(CalculationError)} />
-    </div>
+    <MyApp />
   </Router>,
   document.getElementById('app'),
 );

@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 export default function Result(props) {
-  let {type, weight, rate} = props.location.state;
+  let {type, weight, rate} = props;
   return (
     <div className="card border rounded mt-4 p-4">
       <div className="card-body">
