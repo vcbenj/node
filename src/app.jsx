@@ -38,7 +38,6 @@ class App extends React.Component {
     fetch(url, {method: 'GET'})
       .then(res => {
         if (res.ok && res.status == 200) return res.json();
-
         throw res;
       })
       .then(data => {
