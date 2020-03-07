@@ -58,6 +58,13 @@ class App extends React.Component {
     else this.useDefaultStrategy(event);
   }
 
+  handleToggleOn() {
+    this.setState({useAjax: true});
+  }
+
+  handleToggleOff() {
+    this.setState({useAjax: false});
+  }
 
   render() {
     return (
@@ -69,8 +76,11 @@ class App extends React.Component {
             <PostalCalculator
               weight={this.state.weight}
               type={this.state.type}
+              useAjax={this.state.useAjax}
               onWeightChange={this.handleWeightChange}
               onTypeChange={this.handleTypeChange}
+              onToggleOn={this.handleToggleOn}
+              onToggleOff={this.handleToggleOff}
               onSubmit={this.handleSubmit}
             />
           )}
@@ -97,5 +107,5 @@ ReactDOM.render(
   <Router>
     <MyApp />
   </Router>,
-  document.getElementById('postal'),
+  document.getElementById('app'),
 );
