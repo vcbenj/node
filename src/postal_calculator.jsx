@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import WeightControl from './weight_control.jsx';
 import TypeControl from './type_control.jsx';
-import Toggle from './toggle.jsx';
 
 export default function PostalCalculator(props) {
   return (
@@ -19,13 +18,7 @@ export default function PostalCalculator(props) {
       <button type="submit" className="btn btn-primary mr-4 mb-4">
         Calculate
       </button>
-      <Toggle
-        onLabel="AJAX"
-        offLabel="Old-school"
-        handleToggleOn={props.onToggleOn}
-        handleToggleOff={props.onToggleOff}
-        toggled={props.useAjax}
-      />
+     
     </form>
   );
 }
