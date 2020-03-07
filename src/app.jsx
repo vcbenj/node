@@ -31,40 +31,40 @@ class App extends React.Component {
     return;
   }
 
-  useAjaxStrategy(event) {
-    console.log('submitting using AJAX...');
-    event.preventDefault();
-    let url = `/api/rates/${this.state.type}?weight=${this.state.weight}`;
-    fetch(url, {method: 'GET'})
-      .then(res => {
-        if (res.ok && res.status == 200) return res.json();
+  // useAjaxStrategy(event) {
+  //   console.log('submitting using AJAX...');
+  //   event.preventDefault();
+  //   let url = `/api/rates/${this.state.type}?weight=${this.state.weight}`;
+  //   fetch(url, {method: 'GET'})
+  //     .then(res => {
+  //       if (res.ok && res.status == 200) return res.json();
 
-        throw res;
-      })
-      .then(data => {
-        let {rate} = data;
-        this.setState({rate: rate});
-        this.props.history.push('/result');
-      })
-      .catch(err => {
-        err.text().then(msg => {
-          this.props.history.push('/error', {message: msg});
-        });
-      });
-  }
+  //       throw res;
+  //     })
+  //     .then(data => {
+  //       let {rate} = data;
+  //       this.setState({rate: rate});
+  //       this.props.history.push('/result');
+  //     })
+  //     .catch(err => {
+  //       err.text().then(msg => {
+  //         this.props.history.push('/error', {message: msg});
+  //       });
+  //     });
+  // }
 
-  handleSubmit(event) {
-    if (this.state.useAjax) this.useAjaxStrategy(event);
-    else this.useDefaultStrategy(event);
-  }
+  // handleSubmit(event) {
+  //   if (this.state.useAjax) this.useAjaxStrategy(event);
+  //   else this.useDefaultStrategy(event);
+  // }
 
-  handleToggleOn() {
-    this.setState({useAjax: true});
-  }
+  // handleToggleOn() {
+  //   this.setState({useAjax: true});
+  // }
 
-  handleToggleOff() {
-    this.setState({useAjax: false});
-  }
+  // handleToggleOff() {
+  //   this.setState({useAjax: false});
+  // }
 
   render() {
     return (
@@ -76,7 +76,7 @@ class App extends React.Component {
             <PostalCalculator
               weight={this.state.weight}
               type={this.state.type}
-              useAjax={this.state.useAjax}
+              // useAjax={this.state.useAjax}
               onWeightChange={this.handleWeightChange}
               onTypeChange={this.handleTypeChange}
               onToggleOn={this.handleToggleOn}
@@ -107,5 +107,5 @@ ReactDOM.render(
   <Router>
     <MyApp />
   </Router>,
-  document.getElementById('app'),
+  document.getElementById('postal'),
 );
